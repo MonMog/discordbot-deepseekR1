@@ -114,5 +114,6 @@ start cmd /k "ollama run deepseek-r1:1.5b"
 
 
 # Credits
+- https://github.com/deepseek-ai/DeepSeek-V3
 - https://github.com/ollama/ollama/blob/main/docs/api.md#generate-a-completion
 - https://www.youtube.com/@NetworkChuck
