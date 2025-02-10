@@ -102,6 +102,18 @@ Awesome, we have a discord bot that can now call to your locally hosted AI model
 start cmd /k "ollama run deepseek-r1:1.5b"
 ```
 
+# Usage
+
+This seems pretty easy to follow. Create a new folder and download the .bat file and the .py file in the repo. Use the .bat file (make sure to change the model to whichever one you plan on using) and ensure that your server is running by going to the localhost:port. Once you see the "ollama is running", head over to the discordbot.py file and _**MAKE SURE TO REPLACE YOUR TOKEN WITH YOUR OWN TOKEN***_ or else it won't work. Once you configure your .py file to your own liking, you're all good to go over to discord and DM (or go to the same server as the bot) and do the following:
+
+`!ask Will chinchillas ever be able to take over the world`
+
+# Postface
+Wow, that was actually much more easier than I thought it would be and now I need to find another project...another AI project...
+
+
+
+
 
 
 
