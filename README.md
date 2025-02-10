@@ -35,10 +35,72 @@ print(response.json())
 The response? Well, here's the first sentence from the response section of the print statement: "The chinchilla is indeed native to Canada and is often mistakenly referred to as a horse by some individuals or communities.". This feeling is similiar to having a baby and taking care of it and you blink and all of a sudden they're leaving the driveway in their own car to college. Can you believe it? The chinchilla is often mistaken as a horse. I think this API call passes with flying colors. 
 
 ## Discord bot handling the API request
+The final step should be bringing those two first steps together and making the discord bot make the requests themselves. I am going to assume you already have a working discord bot for this step and if not, fret not for there are endless amount of resources online for setting it up yourself. This step should be straight forward, copy the code from the last section to your bot's code, right? Here is what it could look like:
+
+```
+import discord
+from discord.ext import commands
+import requests
+
+
+Intents = discord.Intents.all()
+bot = commands.Bot(command_prefix="!", intents=Intents)
+token = "niceTry"
+
+OLLAMA_API_URL = "http://localhost:11434/api/generate"
+
+async def send_long_message(channel, message):
+    for i in range(0, len(message), 2000):
+        await channel.send(message[i:i + 2000])
+
+@bot.event
+async def on_message(message):
+    if message.author == bot.user:
+        return
+
+    if message.content.startswith("!ask"):
+        prompt = message.content[5:].strip()
+        if not prompt:
+            await message.channel.send("You sicken me")
+            return
+
+        payload = {
+            "model": "deepseek-r1:1.5b",
+            "prompt": prompt,
+            "stream": False
+        }
+        headers = {"Content-Type": "application/json"}
+        response = requests.post(OLLAMA_API_URL, json=payload, headers=headers)
+
+        if response.status_code == 200:
+            data = response.json()
+            reply = data.get("response", "Hmmmmmmmmm")
+        else:
+            reply = f"Error: {response.status_code}"
+
+        if len(reply) > 2000:
+            await send_long_message(message.channel, reply)
+        else:
+            await message.channel.send(reply)
+
+
+bot.run(token)
 
 
 
+```
 
+
+You will notice a helper function inside the code called send_long_message. I have noticed that whenever the model thinks, it _really_ likes to think and goes on and on, which is pretty cool honestly. Because of Discord's message limit of 2000 characters, we will have to find some type of work around. The work around being, cut the reply into chunks of 2000 characters and send them one at a time. I believe we are almost done and we just about to ensure some final steps
+
+## Final steps
+
+Awesome, we have a discord bot that can now call to your locally hosted AI model and input your prompt and output the response to you in the chat. For this to work, you need to ensure that you have ollama running. To check, go to the localhost:port that was previously mentioned and if you see "ollama is running", then your bot can now safely make the calls. I personally want to reduce the amount of steps needed so I made a .bat file that when clicked, just launches CMD and types in the command to run the model
+
+```
+@echo off
+start cmd /k "ollama run deepseek-r1:1.5b"
+```
 
 
 
