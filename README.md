@@ -109,7 +109,7 @@ This seems pretty easy to follow. Create a new folder and download the .bat file
 `!ask Will chinchillas ever be able to take over the world`
 
 # Postface
-Wow, that was actually much more easier than I thought it would be and now I need to find another project...another AI project...
+Wow, that was actually much more easier than I thought it would be and now I need to find another project...another AI project.
 
 
 
