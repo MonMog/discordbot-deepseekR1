@@ -25,7 +25,7 @@ async def on_message(message):
             return
 
         payload = {
-            "model": "deepseek-r1:1.5b",
+            "model": "mistral",
             "prompt": prompt,
             "stream": False
         }
